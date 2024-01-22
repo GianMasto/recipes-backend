@@ -1,16 +1,15 @@
-import express, { Request, Response, Application } from "express";
-import dotenv from "dotenv";
+import express from "express";
 import cors from "cors";
+import helmet from "helmet";
 
-dotenv.config();
+import router from "./routes";
 
-const app: Application = express();
+const app = express();
 
 app.use(cors());
+app.use(helmet());
 app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to Express & TypeScript Server");
-});
+app.use("/api", router);
 
 export default app;
