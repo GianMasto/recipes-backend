@@ -10,7 +10,7 @@ const DB_URL = process.env.DB_URL as string;
 main().catch((err) => console.log(err));
 
 async function main() {
-  // await mongoose.connect(DB_URL);
+  await mongoose.connect(DB_URL);
 
   app.listen(PORT, () => {
     console.log(`Server running`);

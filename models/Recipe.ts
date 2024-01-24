@@ -2,7 +2,6 @@ import { Schema, model } from "mongoose";
 import { IRecipe } from "../interfaces/IRecipe";
 
 const recipeSchema = new Schema<IRecipe>({
-  _id: String,
   name: { type: String, required: true },
   description: { type: String, required: true },
   ingredients: [
