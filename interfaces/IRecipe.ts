@@ -1,11 +1,11 @@
 import { Ingredient } from "./Ingredient";
 
 export interface IRecipe {
-  _id: String;
-  name: String;
-  description: String;
+  _id: string;
+  name: string;
+  description: string;
   ingredients: Ingredient[];
-  imagePath: String;
-  userEmail: String;
-  __v: Number;
+  imagePath: string;
+  userEmail: string;
+  __v: number;
 }

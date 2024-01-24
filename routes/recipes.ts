@@ -1,32 +1,20 @@
-import express, { Request, Response } from "express";
+import express from "express";
 
-import { Recipe } from "../models/Recipe";
-import { IRecipe } from "../interfaces/IRecipe";
+import {
+  recipesGET,
+  recipesPOST,
+  recipesPUT,
+  recipesDELETE,
+} from "../controllers/recipes";
 
 const router = express.Router();
 
-router.get("/", async (req: Request, res: Response) => {
-  const recipes = await Recipe.find();
-  res.send(recipes);
-});
+router.get("/", recipesGET);
 
-router.post("/", async (req: Request<IRecipe>, res: Response) => {
-  const { name, description, ingredients, imagePath } = req.body
+router.post("/add", recipesPOST);
 
-  const newRecipe = await new Recipe({ name, description, ingredients, imagePath }).save();
-  res.send(newRecipe);
-});
+router.put("/edit/:_id", recipesPUT);
 
-router.put("/", (req: Request, res: Response) => {
-  res.send("PUT recipes");
-});
-
-router.delete("/", async (req: Request, res: Response) => {
-  const {_id} = req.body
-  
-  const deletedRecipe = await Recipe.deleteOne({_id})
-
-  res.send(deletedRecipe)
-});
+router.delete("/delete/:_id", recipesDELETE);
 
 export default router;
