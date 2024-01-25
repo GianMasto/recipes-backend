@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { Recipe } from "../models/Recipe";
 
 export const recipesGET = async (req: Request, res: Response) => {
-  const recipes = await Recipe.find();
+  const recipes = await Recipe.find({userEmail: req.user.email});
   res.send(recipes);
 };
 
