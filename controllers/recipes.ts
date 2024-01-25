@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 
-import { IRecipe } from "../interfaces/IRecipe";
 import { Recipe } from "../models/Recipe";
 
 export const recipesGET = async (req: Request, res: Response) => {
@@ -8,22 +7,38 @@ export const recipesGET = async (req: Request, res: Response) => {
   res.send(recipes);
 };
 
-export const recipesPOST = async () => {
-  async (req: Request<IRecipe>, res: Response) => {
-    const { name, description, ingredients, imagePath } = req.body;
+export const recipesPOST = async (req: Request, res: Response) => {
+  const { name, description, ingredients, imagePath } = req.body;
 
-    await new Recipe({ name, description, ingredients, imagePath }).save();
-    res.json({
-      msg: "Store recipe ok",
-    });
-  };
+  try {
+    await new Recipe({
+      name,
+      description,
+      ingredients,
+      imagePath,
+      userEmail: req.user.email,
+    }).save();
+  } catch (error) {
+    console.log(error);
+  }
+
+  res.json({
+    msg: "Store recipe ok",
+  });
 };
 
 export const recipesPUT = async (req: Request, res: Response) => {
-  await Recipe.findByIdAndUpdate(req.params._id, req.body);
+  const { name, description, ingredients, imagePath } = req.body;
+
+  await Recipe.findByIdAndUpdate(req.params._id, {
+    name,
+    description,
+    ingredients,
+    imagePath,
+  });
 
   res.json({
-    msg: "Delete recipe ok",
+    msg: "Edit recipe ok",
   });
 };
 
