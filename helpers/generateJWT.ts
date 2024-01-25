@@ -6,7 +6,7 @@ export const generateJWT = (_id: string) => {
       { _id },
       process.env.SECRET as string,
       {
-        expiresIn: "3600",
+        expiresIn: "1h",
       },
       (err, token) => {
         if (err) {

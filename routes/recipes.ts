@@ -1,4 +1,5 @@
 import express from "express";
+import { check } from 'express-validator'
 
 import {
   recipesGET,
@@ -6,10 +7,12 @@ import {
   recipesPUT,
   recipesDELETE,
 } from "../controllers/recipes";
+import { validateJWT } from "../middlewares/validateJWT";
+import { validateFields } from "../middlewares/validateFields";
 
 const router = express.Router();
 
-router.get("/", recipesGET);
+router.get("/", validateJWT, recipesGET);
 
 router.post("/add", recipesPOST);
 
